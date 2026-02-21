@@ -1,7 +1,7 @@
 {
   "name": "Socios Racing Chivilcoy",
   "short_name": "Socios Racing",
-  "start_url": "/login.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a1a1a",
