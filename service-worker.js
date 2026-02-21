@@ -4,8 +4,9 @@ const urlsToCache = [
   "/",
   "/login.html",
   "/dashboard.html",
-  "/login.js",
-  "/dashboard.js",
+  "/js/login.js",
+  "/js/dashboard.js",
+  "/manifest.json",
 ];
 
 self.addEventListener("install", (event) => {
