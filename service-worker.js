@@ -1,4 +1,4 @@
-const CACHE_NAME = "socios-racing-v1";
+const CACHE_NAME = "socios-racing-v4";
 
 const urlsToCache = [
   "/",
