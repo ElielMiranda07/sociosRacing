@@ -1,8 +1,8 @@
-const CACHE_NAME = "socios-racing-v6";
+const CACHE_NAME = "socios-racing-v7";
 
 const urlsToCache = [
   "/",
-  "/login.html",
+  "/index.html",
   "/dashboard.html",
   "/js/login.js",
   "/js/dashboard.js",
