@@ -1,3 +1,11 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyDCqe24Tu4-BKrxykDwTQvbDVIpoPBD8cY",
+  authDomain: "reactss-26771.firebaseapp.com",
+  projectId: "reactss-26771",
+};
+
+firebase.initializeApp(firebaseConfig);
+
 const db = firebase.firestore();
 
 function cambiarPassword() {

@@ -1,3 +1,33 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-left,
+.header-center,
+.header-right {
+  flex: 1;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logoRacing {
+  height: 10vh;
+}
+
 body {
   background-color: #131748;
   color: #8bc4e5;
