@@ -2,7 +2,7 @@ const db = firebase.firestore();
 
 firebase.auth().onAuthStateChanged(async (user) => {
   if (!user) {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
     return;
   }
 
@@ -15,42 +15,33 @@ firebase.auth().onAuthStateChanged(async (user) => {
 
   const data = doc.data();
 
-  // 👉 FORZAR CAMBIO DE CONTRASEÑA
   if (data.primerLogin === true) {
     window.location.href = "cambiarPassword.html";
     return;
   }
 
-  // 👉 Cargar datos normales
-  document.getElementById("nombreSocio").innerText = data.nombre;
-  document.getElementById("estadoCuota").innerText = data.estadoCuota;
+  // Cargar datos
+  document.getElementById("saludo").innerText =
+    `Hola, ${data.nombre} ${data.apellido}`;
+
+  document.getElementById("estadoCuota").innerText =
+    `Estado de cuota: ${data.estadoCuota}`;
+
+  document.getElementById("vencimiento").innerText =
+    `Vencimiento: ${data.vencimiento}`;
 });
-
-function cargarDatos(uid) {
-  db.collection("socios")
-    .doc(uid)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const data = doc.data();
-
-        document.getElementById("saludo").textContent =
-          `Hola, ${data.nombre} ${data.apellido}`;
-
-        document.getElementById("estadoCuota").textContent =
-          `Estado de cuota: ${data.estadoCuota}`;
-
-        document.getElementById("vencimiento").textContent =
-          `Vencimiento: ${data.vencimiento}`;
-      }
-    });
-}
 
 function logout() {
   firebase
     .auth()
     .signOut()
     .then(() => {
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     });
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    window.location.reload();
+  });
 }

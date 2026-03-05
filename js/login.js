@@ -1,3 +1,11 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyDCqe24Tu4-BKrxykDwTQvbDVIpoPBD8cY",
+  authDomain: "reactss-26771.firebaseapp.com",
+  projectId: "reactss-26771",
+};
+
+firebase.initializeApp(firebaseConfig);
+
 function login() {
   const dni = document.getElementById("dni").value.trim();
   const password = document.getElementById("password").value;
@@ -21,4 +29,17 @@ function login() {
       errorMsg.textContent = "DNI o contraseña incorrectos.";
       console.error(error);
     });
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js")
+    .then(() => console.log("Service Worker registrado"))
+    .catch((err) => console.log("Error SW:", err));
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    window.location.reload();
+  });
 }

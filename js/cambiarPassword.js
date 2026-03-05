@@ -1,3 +1,5 @@
+const db = firebase.firestore();
+
 function cambiarPassword() {
   const nueva = document.getElementById("nuevaPassword").value;
   const confirmar = document.getElementById("confirmarPassword").value;

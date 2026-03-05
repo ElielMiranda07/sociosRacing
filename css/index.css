@@ -1,0 +1,22 @@
+body {
+  background-color: #131748;
+  color: #8bc4e5;
+  font-family: "Antonio";
+}
+
+.akd {
+  width: 50%;
+  height: auto;
+}
+
+.btn-custom {
+  background-color: #ffffff;
+  color: #131748;
+  border-color: #131748;
+}
+
+.btn-custom:hover {
+  background-color: #131748;
+  color: #ffffff;
+  border-color: #ffffff;
+}
