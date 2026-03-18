@@ -28,15 +28,25 @@ firebase.auth().onAuthStateChanged(async (user) => {
     return;
   }
 
+  const estados = {
+    al_dia: "Al día",
+    vencida: "Vencida",
+  };
+
+  const estadoTexto = estados[data.estadoCuota] || data.estadoCuota;
+
+  const [anio, mes, dia] = data.vencimientoCuota.split("-");
+
+  const fechaFormateada = `${dia}/${mes}/${anio}`;
+
   // Cargar datos
-  document.getElementById("saludo").innerText =
-    `Hola, ${data.nombre} ${data.apellido}`;
+  document.getElementById("saludo").innerText = `Hola, ${data.nombre}`;
 
   document.getElementById("estadoCuota").innerText =
-    `Estado de cuota: ${data.estadoCuota}`;
+    `Estado de cuota: ${estadoTexto}`;
 
   document.getElementById("vencimiento").innerText =
-    `Vencimiento: ${data.vencimiento}`;
+    `Vencimiento: ${fechaFormateada}`;
 });
 
 function logout() {
@@ -52,4 +62,48 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.addEventListener("controllerchange", () => {
     window.location.reload();
   });
+}
+
+async function pagarCuota() {
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    alert("Usuario no autenticado");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://us-central1-reactss-26771.cloudfunctions.net/crearPreferencia",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uid: user.uid,
+        }),
+      },
+    );
+
+    if (!res.ok) {
+      console.error("HTTP ERROR:", res.status);
+      alert("Error en el servidor");
+      return;
+    }
+
+    const data = await res.json();
+
+    console.log("RESPUESTA BACKEND:", data); // 👈 CLAVE
+
+    if (!data.init_point) {
+      alert("Error al generar el pago");
+      return;
+    }
+
+    window.location.href = data.init_point;
+  } catch (error) {
+    console.error("ERROR EN FETCH:", error);
+    alert("Error de conexión con el servidor");
+  }
 }

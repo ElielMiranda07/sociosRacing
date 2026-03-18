@@ -8,7 +8,7 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-function cambiarPassword() {
+async function cambiarPassword() {
   const nueva = document.getElementById("nuevaPassword").value;
   const confirmar = document.getElementById("confirmarPassword").value;
 
@@ -24,17 +24,27 @@ function cambiarPassword() {
 
   const user = firebase.auth().currentUser;
 
-  user
-    .updatePassword(nueva)
-    .then(async () => {
-      await db.collection("socios").doc(user.uid).update({
-        primerLogin: false,
-      });
+  if (!user) {
+    alert("Sesión expirada");
+    return;
+  }
 
-      alert("Contraseña actualizada");
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      alert("Error: " + error.message);
+  try {
+    await user.updatePassword(nueva);
+
+    await db.collection("socios").doc(user.uid).update({
+      primerLogin: false,
     });
+
+    alert("Contraseña actualizada");
+    window.location.href = "dashboard.html";
+  } catch (error) {
+    if (error.code === "auth/requires-recent-login") {
+      alert("Por seguridad, volvé a iniciar sesión");
+    } else if (error.code === "auth/weak-password") {
+      alert("Contraseña demasiado débil");
+    } else {
+      alert("Error al cambiar la contraseña");
+    }
+  }
 }

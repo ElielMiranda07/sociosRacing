@@ -24,14 +24,31 @@
     </section>
     <section class="d-flex flex-column align-items-center">
       <h1 class="my-2">Ingreso Socios</h1>
-      <input class="my-2" type="text" id="dni" placeholder="Ingrese su DNI" />
+      <div class="container input-group my-2">
+        <input
+          class="form-control"
+          type="text"
+          id="dni"
+          placeholder="Ingrese su DNI"
+        />
 
-      <input
-        class="my-2"
-        type="password"
-        id="password"
-        placeholder="Contraseña"
-      />
+        <div class="input-group">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Contraseña"
+          />
+
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            id="togglePassword"
+          >
+            👁
+          </button>
+        </div>
+      </div>
 
       <button class="btn btn-lg btn-custom" onclick="login()">Ingresar</button>
 
